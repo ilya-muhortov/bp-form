@@ -1,0 +1,52 @@
+{
+  "name": "bp-form",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "webpack --watch",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ilya-muhortov/bp-form.git"
+  },
+  "author": {
+    "name": "Ilya Muhortov"
+  },
+  "license": "ISC",
+  "dependencies": {
+    "@blueprintjs/core": "^3.19.1",
+    "@blueprintjs/icons": "^3.11.0",
+    "axios": "^0.19.0",
+    "lodash": "^4.17.15",
+    "react": "^16.10.2",
+    "react-select": "^3.0.8",
+    "styled-components": "^4.4.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-styled-components": "^1.10.6",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.7.0",
+    "directory-named-webpack-plugin": "^4.0.1",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
+  },
+  "peerDependencies": {
+    "@blueprintjs/core": "^3.19.1",
+    "@blueprintjs/icons": "^3.11.0",
+    "axios": "^0.19.0",
+    "lodash": "^4.17.15",
+    "react": "^16.10.2",
+    "react-select": "^3.0.8",
+    "styled-components": "^4.4.0"
+  },
+  "resolutions": {
+    "styled-components": "^4.4.0"
+  }
+}
