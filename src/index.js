@@ -1,3 +1,4 @@
+import axios from 'axios';
 
 export { DebouncedInputWidget } from './Debounced';
 export { InputWidget } from './Input';
@@ -10,3 +11,18 @@ export * from './async';
 export * from './context';
 export * from './dialog';
 
+axios.defaults.baseURL = process.env.REACT_APP_API_HOST ? `${process.env.REACT_APP_API_HOST}` : '';
+axios.defaults.withCredentials = true;
+axios.interceptors.request.use((config) => {
+  console.log(config.url);
+  if (config.url[0] !== '/') {
+    config.url = `/api/${config.url}`;
+  }
+
+  if (config.url[config.url.length - 1] !== '/' && config.url.indexOf('?') === -1) {
+    config.url += '/';
+  }
+
+  console.log(config.url);
+  return config;
+});

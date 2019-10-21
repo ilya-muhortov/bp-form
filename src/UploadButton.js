@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { Button } from '@blueprintjs/core';
+import { Button, Intent, Position, Toaster } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 
 const StyledButton = styled(Button)`
@@ -14,9 +14,16 @@ const StyledButton = styled(Button)`
     position: absolute;
     left: 0;
     top: 0;
+    width: 100%;
+    height: 100%;
     opacity: 0;
+    cursor: pointer;
   }
 `;
+
+const UploadToaster = Toaster.create({
+    position: Position.TOP,
+});
 
 export class UploadButton extends Component {
 
@@ -41,9 +48,6 @@ export class UploadButton extends Component {
   uploadFile = (e) => {
     const { url, data, fileFieldName, onUploaded } = this.props;
     const files = e.target.files;
-    this.setState({
-      loading: true
-    });
 
     const config = {
       headers: {'Content-Type': 'multipart/form-data'},
@@ -58,6 +62,17 @@ export class UploadButton extends Component {
       axios.post(url, formData, config).then(res => {
         onUploaded(res.data);
       })
+      .catch(error => {
+        const response = error.response;
+        if (response && response.status === 400) {
+          if (response.data && response.data.file) {
+            UploadToaster.show({
+              intent: Intent.DANGER,
+              message: `${file.name} - ${response.data.file[0]}`
+            });
+          }
+        }
+      });
     });
   };
 
