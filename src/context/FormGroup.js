@@ -19,7 +19,7 @@ export class FormGroupContext extends Component {
   };
 
   render() {
-    const { name, WidgetComponent, widgetProps } = this.props;
+    const { name, WidgetComponent, widgetProps, helperText } = this.props;
     return (
       <FormContext.Consumer>
         {context => {
@@ -28,7 +28,7 @@ export class FormGroupContext extends Component {
           return (
             <FormGroup
               {...this.props}
-              helperText={errors ? <FormErrors errors={errors} /> : undefined}
+              helperText={errors ? <FormErrors errors={errors} /> : helperText}
             >
               {WidgetComponent && (
                 <WidgetComponent

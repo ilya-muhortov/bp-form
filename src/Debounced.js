@@ -38,6 +38,8 @@ export class DebouncedInputWidget extends Component {
       this.props.delay
     );
 
+    this.ref = React.createRef();
+
     this.handleChange = this.handleChange.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
     this.handleReset = this.handleReset.bind(this);
@@ -101,7 +103,7 @@ export class DebouncedInputWidget extends Component {
     let rightElement = <React.Fragment/>;
     if (showResetButton) {
       rightElement = (
-          <ResetButton
+        <ResetButton
           disabled={value.length === 0}
           onReset={this.handleReset}
         />
