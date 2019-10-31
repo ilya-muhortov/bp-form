@@ -11,7 +11,7 @@ export * from './async';
 export * from './context';
 export * from './dialog';
 
-axios.defaults.baseURL = process.env.REACT_APP_API_HOST ? `${process.env.REACT_APP_API_HOST}` : '';
+axios.defaults.baseURL = process.env.REACT_APP_API_HOST ? process.env.REACT_APP_API_HOST : '';
 axios.defaults.withCredentials = true;
 axios.interceptors.request.use((config) => {
   if (config.url[0] !== '/') {
@@ -22,6 +22,5 @@ axios.interceptors.request.use((config) => {
     config.url += '/';
   }
 
-  console.log(config.url);
   return config;
 });
