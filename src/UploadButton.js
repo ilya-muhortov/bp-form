@@ -36,6 +36,7 @@ export class UploadButton extends Component {
     url: PropTypes.string.isRequired,
     data: PropTypes.object,
     fileFieldName: PropTypes.string,
+    onUploaded: PropTypes.func.isRequired
   };
 
   static defaultProps = {

@@ -7,6 +7,7 @@ export { SelectWidget } from './Select';
 export { TextWidget } from './Text';
 export { UploadButton } from './UploadButton';
 export { DateWidget } from './Date';
+export { CheckboxWidget } from './Checkbox';
 export * from './async';
 export * from './context';
 export * from './dialog';
