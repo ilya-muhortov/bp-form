@@ -1,5 +1,5 @@
 
-import _ from 'lodash';
+import git s_ from 'lodash';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import axios from 'axios';
@@ -25,11 +25,13 @@ export class FormProvider extends Component {
     postSave: PropTypes.func,
     postSaveMessage: PropTypes.string,
     showNonFieldErrors: PropTypes.bool,
+    showForm: PropTypes.bool,
     onItemChanged: PropTypes.func
   };
 
   static defaultProps = {
-    showNonFieldErrors: true
+    showNonFieldErrors: true,
+    showForm: true
   };
 
   constructor(props) {
@@ -54,6 +56,7 @@ export class FormProvider extends Component {
   save = () => {
     const { item } = this.state;
     const { postSave, postSaveMessage } = this.props;
+    const isNew = item.id ? false : true;
 
     this.setState({
       errors: {},
@@ -61,7 +64,7 @@ export class FormProvider extends Component {
     });
 
     axios({
-      method: item.id ? 'PUT' : 'POST',
+      method: isNew ? 'POST': 'PUT',
       url: this.props.url ? this.props.url : item.meta.url,
       data: item
     }).then(res => {
@@ -135,7 +138,7 @@ export class FormProvider extends Component {
 
   render() {
     const { errors } = this.state;
-    const { showNonFieldErrors } = this.props;
+    const { showNonFieldErrors, showForm } = this.props;
     return (
       <FormContext.Provider value={{
         item: this.state.item,
@@ -147,14 +150,17 @@ export class FormProvider extends Component {
         setValue: this.setValue,
         getValue: this.getValue
       }}>
-        <form ref={this.formRef}>
-          {(showNonFieldErrors && errors['non_field_errors']) && (
-            <div className={'mb-10'}>
-              <FormErrors errors={errors['non_field_errors']} />
-            </div>
-          )}
-          {this.props.children}
-        </form>
+        {showForm && (
+          <form ref={this.formRef} autoComplete="off">
+            {(showNonFieldErrors && errors['non_field_errors']) && (
+              <div className={'mb-10'}>
+                <FormErrors errors={errors['non_field_errors']} />
+              </div>
+            )}
+            {this.props.children}
+          </form>
+        )}
+        {!showForm && this.props.children}
       </FormContext.Provider>
     );
   }
