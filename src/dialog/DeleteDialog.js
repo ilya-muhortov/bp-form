@@ -8,7 +8,8 @@ import {
   Button,
   Toaster,
   Position,
-  H6, H5
+  H6,
+  H5
 } from '@blueprintjs/core';
 import { IconNames } from '@blueprintjs/icons';
 import styled from 'styled-components';
@@ -49,8 +50,21 @@ export default class DeleteDialog extends Component {
     this.openDialog = this.openDialog.bind(this);
   }
 
+  setLoading = (value) => {
+    this.setState({
+      loading: value
+    });
+  };
+
   handleDelete = () => {
     const { item, onDelete } = this.props;
+    const { loading } = this.state;
+    if (loading) {
+      return;
+    }
+
+    this.setLoading(true);
+
     axios.delete(item.meta.url).then(res => {
       this.closeDialog();
       onDelete(item);
@@ -68,29 +82,36 @@ export default class DeleteDialog extends Component {
           timeout: 4000
         })
       }
+    }).then(() => {
+      this.setLoading(false);
     });
   };
 
   openDialog = () => {
-    this.setState({isOpen: true, loading: true});
+    this.setState({isOpen: true});
     if (this.props.loadRelatedObjects) {
       axios.get(`${this.props.url}/prepare_delete`).then(res => {
         this.setState({
-          relatedObjects: res.data,
-          loading: false
+          relatedObjects: res.data
         })
       });
     }
   };
 
   closeDialog = () => {
+    const { loading } = this.state;
+    if (loading) {
+      return;
+    }
+
     this.setState({
       isOpen: false
     });
   };
 
   keydown = (e) => {
-    if (this.state.isOpen) {
+    const { isOpen } = this.state;
+    if (isOpen) {
       const keyCode = e.key.toUpperCase();
       if (keyCode === 'ENTER') {
         this.handleDelete();
@@ -109,7 +130,7 @@ export default class DeleteDialog extends Component {
 
   render() {
     const { isOpen, relatedObjects } = this.state;
-    const { item, children } = this.props;
+    const { item, children, buttonProps } = this.props;
     return (
       <React.Fragment>
         <Button
@@ -117,7 +138,7 @@ export default class DeleteDialog extends Component {
           icon={IconNames.TRASH}
           minimal={true}
           onClick={this.openDialog}
-          {...this.props.buttonProps}
+          {...buttonProps}
         />
 
         <StyledAlert
@@ -130,6 +151,7 @@ export default class DeleteDialog extends Component {
           isOpen={isOpen}
           onCancel={this.closeDialog}
           onConfirm={this.handleDelete}
+          transitionDuration={200}
         >
           {!children && (
             <React.Fragment>

@@ -85,6 +85,14 @@ export class FormProvider extends Component {
       }
     }).catch(err => {
       const response = err.response;
+      if (response.status === 404) {
+        MessageToaster.show({
+          message: 'Не найдено',
+          intent: Intent.DANGER,
+          timeout: 2000
+        });
+      }
+
       let errors = {};
       if (response && response.data) {
         errors = response.data;
