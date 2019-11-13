@@ -1,5 +1,5 @@
 
-import git s_ from 'lodash';
+import _ from 'lodash';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import axios from 'axios';

@@ -60,6 +60,9 @@ export class InputWidget extends Component {
         />
       );
     }
+    else if (this.props.rightElement) {
+      rightElement = this.props.rightElement;
+    }
 
     return (
       <InputGroup

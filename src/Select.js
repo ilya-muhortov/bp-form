@@ -1,6 +1,6 @@
 
 import PropTypes from 'prop-types';
-import { omit } from 'lodash';
+import { isEmpty } from 'lodash';
 import React, { Component } from 'react';
 import Select from 'react-select';
 import { StyledSelect } from './styled';
@@ -19,14 +19,10 @@ export class SelectWidget extends Component {
     onChange(option ? option.value : null);
   };
 
-  getWidgetProps = () => {
-    return omit(this.props, Object.keys(SelectWidget.propTypes));
-  };
-
   render() {
-    const { value, options } = this.props;
+    const { value, options, onChange, ...otherProps } = this.props;
 
-    let selectValue = {};
+    let selectValue = null;
     if (value !== null && value !== undefined) {
       selectValue = options.find(o => o.value === value);
     }
@@ -36,9 +32,10 @@ export class SelectWidget extends Component {
         options={options}
         onChange={(option) => this.handleChange(option)}
         value={selectValue}
-        isClearable={true}
+        isClearable={!isEmpty(selectValue)}
+        placeholder={''}
         {...StyledSelect}
-        {...this.getWidgetProps()}
+        {...otherProps}
       />
     );
   }
