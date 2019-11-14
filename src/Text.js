@@ -1,7 +1,6 @@
 
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
-import { omit } from 'lodash';
 import { TextArea } from '@blueprintjs/core';
 
 
@@ -18,12 +17,8 @@ export class TextWidget extends Component {
     onChange(value);
   };
 
-  getWidgetProps = () => {
-    return omit(this.props, Object.keys(TextWidget.propTypes));
-  };
-
   render() {
-    let { value } = this.props;
+    let { value, onChange, otherProps } = this.props;
     if (typeof value !== 'string') {
       value = '';
     }
@@ -33,7 +28,7 @@ export class TextWidget extends Component {
         fill={true}
         value={value}
         onChange={(e) => this.handleChange(e)}
-        {...this.getWidgetProps()}
+        {...otherProps}
       />
     )
   }
