@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import Select from 'react-select';
 
-import { StyledSelect } from '../styled';
+import { BlueprintSelectStyle } from '../styled';
 import { withAsync } from './withAsync';
 
 
@@ -41,7 +41,7 @@ class AsyncSelect extends Component {
   render() {
     const { value, selectProps, loading, options, optionValue } = this.props;
 
-    let selectValue = {};
+    let selectValue = null;
     if (value !== null && value !== undefined) {
       if (value[optionValue]) {
         selectValue = value;
@@ -56,12 +56,13 @@ class AsyncSelect extends Component {
         options={options}
         onChange={(option) => this.handleChange(option)}
         value={selectValue}
-        isClearable={!!value}
+        isClearable={!!selectValue}
+        placeholder={''}
         isLoading={loading}
         getOptionLabel={(item) => this.getOptionLabel(item)}
         getOptionValue={(item) => this.getOptionValue(item)}
         {...selectProps}
-        {...StyledSelect}
+        {...BlueprintSelectStyle}
       />
     );
   }

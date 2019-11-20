@@ -6,6 +6,7 @@ import {
   InputGroup,
   Spinner
 } from '@blueprintjs/core';
+import ru from 'convert-layout/ru';
 import ResetButton from './ResetButton';
 
 
@@ -16,12 +17,16 @@ export class DebouncedInputWidget extends Component {
     onChange: PropTypes.func.isRequired,
     loading: PropTypes.bool,
     delay: PropTypes.number,
-    showResetButton: PropTypes.bool
+    showResetButton: PropTypes.bool,
+    convertToRu: PropTypes.bool,
+    convertToEn: PropTypes.bool
   };
 
   static defaultProps = {
     delay: 300,
-    showResetButton: false
+    showResetButton: false,
+    convertToRu: false,
+    convertToEn: false
   };
 
   constructor(props) {
@@ -66,8 +71,16 @@ export class DebouncedInputWidget extends Component {
   };
 
   handleChange(event) {
+    const { convertToRu, convertToEn } = this.props;
+    let value = event.target.value;
+    if (convertToRu) {
+      value = ru.fromEn(value);
+    }
+    else if (convertToEn) {
+      value = ru.toEn(value);
+    }
     this.setState({
-      value: event.target.value
+      value: value
     });
     this.debouncedValue();
   }

@@ -11,6 +11,7 @@ export { CheckboxWidget } from './Checkbox';
 export * from './async';
 export * from './context';
 export * from './dialog';
+export * from './styled';
 
 axios.defaults.baseURL = process.env.REACT_APP_API_HOST ? process.env.REACT_APP_API_HOST : '';
 axios.defaults.withCredentials = true;

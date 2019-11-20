@@ -18,6 +18,8 @@
   "dependencies": {
     "@blueprintjs/core": "^3.19.1",
     "@blueprintjs/icons": "^3.11.0",
+    "convert-layout": "^0.8.0",
+    "localforage": "^1.7.3",
     "lodash": "^4.17.15",
     "react": "^16.10.2",
     "react-select": "^3.0.8",

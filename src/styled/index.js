@@ -1,4 +1,3 @@
 
-export { StyledSelect } from './Select';
+export { BlueprintSelectStyle, StyledSelect } from './Select';
 export { StyledDropzone } from './Dropzone';
-

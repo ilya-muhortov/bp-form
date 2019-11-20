@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 import React, { Component } from 'react';
 import Select from 'react-select';
-import { StyledSelect } from './styled';
+import { StyledSelect, BlueprintSelectStyle } from './styled';
 
 
 export class SelectWidget extends Component {
@@ -11,7 +11,12 @@ export class SelectWidget extends Component {
   static propTypes = {
     value: PropTypes.any,
     options: PropTypes.array.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
+    large: PropTypes.bool
+  };
+
+  static defaultProps = {
+    large: false
   };
 
   handleChange = (option) => {
@@ -20,7 +25,7 @@ export class SelectWidget extends Component {
   };
 
   render() {
-    const { value, options, onChange, ...otherProps } = this.props;
+    const { value, options, onChange, large, ...otherProps } = this.props;
 
     let selectValue = null;
     if (value !== null && value !== undefined) {
@@ -28,13 +33,14 @@ export class SelectWidget extends Component {
     }
 
     return (
-      <Select
+      <StyledSelect
+        large={large}
         options={options}
         onChange={(option) => this.handleChange(option)}
         value={selectValue}
         isClearable={!isEmpty(selectValue)}
         placeholder={''}
-        {...StyledSelect}
+        {...BlueprintSelectStyle}
         {...otherProps}
       />
     );

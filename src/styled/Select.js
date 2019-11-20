@@ -1,5 +1,8 @@
 
-export const StyledSelect = {
+import Select from 'react-select';
+import styled, { css } from 'styled-components';
+
+export const BlueprintSelectStyle = {
   theme: (theme) => ({
     ...theme,
     colors: {
@@ -47,3 +50,16 @@ export const StyledSelect = {
     })
   }
 };
+
+export const StyledSelect = styled(Select)`
+  ${props => props.large && css`
+    div[class*="-control"] {
+      height: 40px;
+    }
+    
+    div[class*="-singleValue"] {
+      font-size: 16px;
+    }
+  `};
+`;
+
