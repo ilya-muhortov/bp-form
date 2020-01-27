@@ -3,7 +3,7 @@ import axios from 'axios';
 export { DebouncedInputWidget } from './Debounced';
 export { InputWidget } from './Input';
 export { NumberInputWidget } from './Number';
-export { SelectWidget } from './Select';
+export { SelectWidget, SelectMultiWidget } from './Select';
 export { TextWidget } from './Text';
 export { UploadButton } from './UploadButton';
 export { DateWidget } from './Date';

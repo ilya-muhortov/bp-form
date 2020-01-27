@@ -1,8 +1,7 @@
 
 import PropTypes from 'prop-types';
-import { isEmpty } from 'lodash';
+import { isEmpty, filter } from 'lodash';
 import React, { Component } from 'react';
-import Select from 'react-select';
 import { StyledSelect, BlueprintSelectStyle } from './styled';
 
 
@@ -40,6 +39,58 @@ export class SelectWidget extends Component {
         value={selectValue}
         isClearable={!isEmpty(selectValue)}
         placeholder={''}
+        {...BlueprintSelectStyle}
+        {...otherProps}
+      />
+    );
+  }
+}
+
+
+export class SelectMultiWidget extends Component {
+
+  static propTypes = {
+    value: PropTypes.any,
+    options: PropTypes.array.isRequired,
+    onChange: PropTypes.func.isRequired,
+    large: PropTypes.bool,
+    emptyValue: PropTypes.any,
+  };
+
+  static defaultProps = {
+    large: false,
+    emptyValue: []
+  };
+
+  handleChange = (options) => {
+    const { onChange, emptyValue } = this.props;
+    if (options && options.length > 0) {
+      onChange(options.map(item => (item.value)))
+    }
+    else {
+      onChange(emptyValue);
+    }
+  };
+
+  render() {
+    const { value, options, onChange, large, ...otherProps } = this.props;
+
+    let selectedValues = [];
+    if (value !== null && value !== undefined && value !== []) {
+      selectedValues = filter(options, function (o) {
+        return value.indexOf(o.value) !== -1;
+      });
+    }
+
+    return (
+      <StyledSelect
+        large={large}
+        options={options}
+        onChange={(options) => this.handleChange(options)}
+        value={selectedValues}
+        isClearable={!isEmpty(selectedValues)}
+        placeholder={''}
+        isMulti={true}
         {...BlueprintSelectStyle}
         {...otherProps}
       />

@@ -18,7 +18,7 @@ export class TextWidget extends Component {
   };
 
   render() {
-    let { value, onChange, otherProps } = this.props;
+    let { value, onChange, ...otherProps } = this.props;
     if (typeof value !== 'string') {
       value = '';
     }

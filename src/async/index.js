@@ -1,4 +1,4 @@
 
 export { withAsync } from './withAsync';
-export { AsyncSelectWidget } from './AsyncSelect';
+export { AsyncSelectWidget, AsyncMultiSelectWidget } from './AsyncSelect';
 export { AsyncCheckboxWidget } from './AsyncCheckbox';
